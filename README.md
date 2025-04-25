@@ -26,3 +26,9 @@ El proyecto permite la gestión de tareas y clasificación por categorías, alma
 npm install
 ionic cordova platform add android / ios
 ionic serve
+
+
+---
+
+📂 Este repositorio fue creado a partir de una base técnica alojada en:  
+https://github.com/wilderpalacios/priorito
