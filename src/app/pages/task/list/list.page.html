@@ -1,0 +1,95 @@
+<ion-header>
+	<ion-toolbar>
+		<p class="main-title">Tu día empieza aquí,
+			<span>controla y cumple</span> tus tareas.
+		</p>
+		<ion-buttons slot="end">
+			<div class="user-avatar">
+				<img src="assets/logo.png" alt="Logo Accenture" />
+			</div>
+		</ion-buttons>
+	</ion-toolbar>
+
+	<ion-toolbar class="filter-toolbar">
+		<ion-segment [(ngModel)]="filterStatus" (ionChange)="applyFilters()" class="status-segment">
+			<ion-segment-button value="all">
+				<div class="segment-item">
+					<div class="segment-icon bordered pink">
+						<ion-icon name="list-outline"></ion-icon>
+					</div>
+					<span>Todas</span>
+				</div>
+			</ion-segment-button>
+			<ion-segment-button value="pending">
+				<div class="segment-item">
+					<div class="segment-icon bordered yellow">
+						<ion-icon name="hourglass-outline"></ion-icon>
+					</div>
+					<span>Pendientes</span>
+				</div>
+			</ion-segment-button>
+
+			<ion-segment-button value="completed">
+				<div class="segment-item">
+					<div class="segment-icon bordered green">
+						<ion-icon name="checkmark-done-outline"></ion-icon>
+					</div>
+					<span>Completadas</span>
+				</div>
+			</ion-segment-button>
+		</ion-segment>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding background-soft">
+	<ion-toolbar>
+		<ion-select mode="ios" label="Filtrar por categoría:" interface="popover" [(ngModel)]="filterCategoryId"
+			(ionChange)="applyFilters()" placeholder="Filtrar por categoría">
+			<ion-select-option value="">Todas</ion-select-option>
+			<ion-select-option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</ion-select-option>
+		</ion-select>
+	</ion-toolbar>
+
+	<div *ngIf="filteredTasks.length === 0" class="no-data">No hay tareas para mostrar.</div>
+
+	<ion-card *ngFor="let task of filteredTasks; trackBy: trackByTaskId" class="task-card"
+		[ngStyle]="{ 'border-left': '5px solid ' + getCategoryColor(task.categoryId) }">
+		<ion-item lines="none">
+			<ion-label>
+				<h2>{{ task.title }}</h2>
+				<p>{{ task.description }}</p>
+				<ion-chip size="small" color="secondary">
+					<ion-label>{{ getCategoryName(task.categoryId) }}</ion-label>
+				</ion-chip>
+				<div class="task-meta">
+					<ion-text color="medium">
+						<small>Estado: {{ task.isCompleted ? 'Completada' : 'Pendiente' }}</small>
+					</ion-text>
+					<div *ngIf="enableTaskTimer">
+						<p><strong>⏱️ Tiempo:</strong> {{ formatElapsed(task.id, task.timeSpentInSeconds || 0) }}</p>
+						<ion-button fill="clear" color="success" size="small" (click)="startTimer(task.id)"
+							[disabled]="timerService.isRunning(task.id)">
+							<ion-icon name="play-outline"></ion-icon>
+						</ion-button>
+						<ion-button fill="clear" color="danger" size="small" (click)="stopTimer(task.id)"
+							[disabled]="!timerService.isRunning(task.id)">
+							<ion-icon name="square-outline"></ion-icon>
+						</ion-button>
+
+					</div>
+				</div>
+			</ion-label>
+			<ion-buttons slot="end">
+				<ion-button fill="clear" color="success" (click)="toggleComplete(task)">
+					<ion-icon [name]="task.isCompleted ? 'checkbox-outline' : 'square-outline'"></ion-icon>
+				</ion-button>
+				<ion-button fill="clear" routerLink="/tasks/edit/{{ task.id }}">
+					<ion-icon name="create-outline"></ion-icon>
+				</ion-button>
+				<ion-button fill="clear" color="danger" (click)="deleteTask(task.id)">
+					<ion-icon name="trash-outline"></ion-icon>
+				</ion-button>
+			</ion-buttons>
+		</ion-item>
+	</ion-card>
+</ion-content>

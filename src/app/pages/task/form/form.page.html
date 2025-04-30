@@ -1,0 +1,50 @@
+<ion-header class="form-header" mode="md">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button defaultHref="/tabs/tasks"></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{ isEditMode ? 'Editar tarea' : 'Crear tarea' }}</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="form-content">
+
+	<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="modern-form">
+
+		<!-- Título -->
+		<div class="form-group">
+			<ion-icon name="text-outline" slot="start"></ion-icon>
+			<ion-input placeholder="Título" formControlName="title"></ion-input>
+		</div>
+
+		<!-- Descripción -->
+		<div class="form-group">
+			<ion-icon name="document-text-outline" slot="start"></ion-icon>
+			<ion-textarea placeholder="Descripción" formControlName="description"></ion-textarea>
+		</div>
+
+		<!-- Selector visual de categoría -->
+		<label class="category-label">Selecciona la categoría</label>
+		<div class="category-tags">
+			<div *ngFor="let cat of categories" class="category-tag" [ngStyle]="{
+				'background': selectedCategoryId === cat.id ? cat.color : '#ffffff',
+				'border': '2px solid ' + cat.color,
+				'color': selectedCategoryId === cat.id ? '#ffffff' : cat.color
+			  }" (click)="selectCategory(cat.id)">
+				{{ cat.name }}
+			</div>
+		</div>
+
+		<!-- Estado -->
+		<div class="form-group" *ngIf="isEditMode">
+			<ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+			<ion-toggle formControlName="isCompleted" color="success">Completada</ion-toggle>
+		</div>
+	</form>
+</ion-content>
+
+<ion-footer class="form-footer">
+	<ion-button expand="block" type="submit" (click)="onSubmit()" [disabled]="taskForm.invalid">
+		{{ isEditMode ? 'Actualizar Tarea' : 'Crear Tarea' }}
+	</ion-button>
+</ion-footer>

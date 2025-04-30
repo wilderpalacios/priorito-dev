@@ -1,0 +1,32 @@
+<ion-header class="category-header" mode="md">
+	<ion-toolbar>
+		<ion-title>Categorías</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="category-list-content">
+	<div *ngIf="categories.length === 0" class="no-data">
+		No hay categorías creadas aún.
+	</div>
+
+	<ion-card *ngFor="let cat of categories; trackBy: trackByCategoryId" class="category-card"
+		[ngStyle]="{ '--color': cat.color }">
+		<div class="category-color-strip"></div>
+
+		<ion-item lines="none">
+			<ion-label>
+				<h2>{{ cat.name }}</h2>
+			</ion-label>
+
+			<ion-buttons slot="end">
+				<ion-button fill="clear" (click)="goToEdit(cat.id)" aria-label="Editar categoría">
+					<ion-icon name="create-outline"></ion-icon>
+				</ion-button>
+				<ion-button fill="clear" color="danger" (click)="deleteCategory(cat.id)"
+					aria-label="Eliminar categoría">
+					<ion-icon name="trash-outline"></ion-icon>
+				</ion-button>
+			</ion-buttons>
+		</ion-item>
+	</ion-card>
+</ion-content>
