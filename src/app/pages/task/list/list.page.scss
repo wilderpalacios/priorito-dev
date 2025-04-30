@@ -1,0 +1,168 @@
+// ==============================
+// 🧱 HEADER
+// ==============================
+
+ion-header {
+	position: relative;
+	box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+	border-radius: 0 0 30px 30px;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background-image: url('/assets/background-card.jpg');
+		background-position: left;
+		opacity: 0.07;
+		z-index: -1;
+	}
+
+	ion-toolbar {
+		--background: transparent !important;
+		--ion-background-color: transparent;
+		--border-width: 0;
+	}
+
+	ion-title,
+	ion-buttons {
+		position: relative;
+		z-index: 1;
+	}
+
+	.main-title {
+		font-weight: bold;
+		font-size: 20px;
+		color: #192c44;
+
+		span {
+			color: #58c091;
+		}
+	}
+
+	.user-avatar {
+		width: 55px;
+		height: 55px;
+		padding: 15px;
+		background-color: #eeeeee73;
+		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+}
+
+// ==============================
+// 🎨 FILTROS SUPERIORES
+// ==============================
+
+.filter-toolbar {
+	--background: transparent;
+	padding: 10px 30px;
+
+	ion-segment {
+		display: flex;
+		justify-content: space-around;
+		background: transparent;
+		--indicator-color: transparent;
+		--background-checked: transparent;
+		--color-checked: #192c44;
+		--color: #444;
+		padding: 10px 0;
+	}
+
+	ion-segment-button {
+		background: transparent;
+		padding: 0;
+		border: none;
+		min-height: 75px;
+
+		&.segment-button-checked .segment-icon {
+			box-shadow: 0 0 0 2px rgba(25, 44, 68, 0.3);
+		}
+
+		.segment-item {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 6px;
+			font-size: 11px;
+			font-weight: 500;
+		}
+
+		.segment-icon {
+			width: 45px;
+			height: 45px;
+			border-radius: 50%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 20px;
+			background: #f5f5f5;
+			border: 2px solid transparent;
+		}
+
+		// 🎨 Colores por estado
+		.pink {
+			background: #ffe6ec;
+			border-color: #ff6b81;
+			color: #ff6b81;
+		}
+
+		.yellow {
+			background: #fff8e1;
+			border-color: #f9ca24;
+			color: #f9ca24;
+		}
+
+		.green {
+			background: #e3f9f2;
+			border-color: #58c091;
+			color: #58c091;
+		}
+	}
+}
+
+// ==============================
+// 📋 LISTADO DE TAREAS
+// ==============================
+
+.background-soft {
+	--background: #f5f6fa;
+
+	> ion-toolbar {
+		--background: transparent;
+		--ion-background-color: transparent;
+		--border-width: 0;
+		font-weight: 300;
+	}
+}
+
+.task-filters {
+	display: flex;
+	gap: 8px;
+	margin: 10px 0;
+	flex-wrap: wrap;
+}
+
+.task-card {
+	border-radius: 20px;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+	margin-bottom: 18px;
+	padding: 10px;
+}
+
+.task-meta {
+	margin-top: 8px;
+
+	ion-text {
+		display: block;
+		margin-bottom: 5px;
+	}
+}

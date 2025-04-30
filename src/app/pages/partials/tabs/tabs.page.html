@@ -1,0 +1,23 @@
+<ion-tabs>
+	<ion-tab-bar slot="bottom" class="custom-tab-bar">
+
+		<ion-tab-button tab="tasks" (click)="selectTab('tasks')" [ngClass]="{ 'tab-selected': currentTab === 'tasks' }"
+			aria-label="Ir a Tareas" [attr.aria-selected]="currentTab === 'tasks' ? true : false">
+			<ion-icon name="reader-outline"></ion-icon>
+			<ion-label>Tareas</ion-label>
+		</ion-tab-button>
+
+		<ion-tab-button tab="categories" (click)="selectTab('categories')"
+			[ngClass]="{ 'tab-selected': currentTab === 'categories' }" aria-label="Ir a Categorías"
+			[attr.aria-selected]="currentTab === 'categories' ? true : false">
+			<ion-icon name="folder-outline"></ion-icon>
+			<ion-label>Categorías</ion-label>
+		</ion-tab-button>
+	</ion-tab-bar>
+
+	<div class="fab-button-wrapper" (click)="onDynamicAdd()">
+		<ion-fab-button aria-label="Agregar nuevo elemento">
+			<ion-icon name="add-outline"></ion-icon>
+		</ion-fab-button>
+	</div>
+</ion-tabs>

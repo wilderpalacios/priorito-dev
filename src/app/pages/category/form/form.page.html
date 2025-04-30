@@ -1,0 +1,47 @@
+<ion-header class="form-header" mode="md">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button defaultHref="/tabs/categories"></ion-back-button>
+		</ion-buttons>
+		<ion-title>{{ isEditMode ? 'Editar categoría' : 'Crear categoría' }}</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="form-content">
+	<form [formGroup]="categoryForm" class="modern-form">
+
+		<!-- Nombre -->
+		<div class="form-group">
+			<ion-icon name="text-outline" class="form-icon"></ion-icon>
+			<ion-input formControlName="name" type="text" placeholder="Nombre de la categoría"
+				aria-label="Nombre de la categoría">
+			</ion-input>
+			<ion-note color="danger" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+				<small *ngIf="name?.errors?.['required']">El nombre es obligatorio.</small>
+				<small *ngIf="name?.errors?.['minlength']">Mínimo 3 caracteres.</small>
+			</ion-note>
+		</div>
+
+		<div class="form-group color-preview">
+			<ion-icon name="brush-outline" class="form-icon"></ion-icon>
+			<ion-input formControlName="color" type="color" readonly inputmode="none" [style.pointer-events]="'none'"></ion-input>
+		</div>
+
+		<!-- Selección de color -->
+		<ion-item lines="none">
+			<ion-label position="stacked">Color</ion-label>
+			<div class="color-options">
+				<div *ngFor="let color of colorOptions" class="color-circle" [ngStyle]="{ background: color }"
+					[class.selected]="color === categoryForm.get('color')?.value" (click)="selectColor(color)"
+					role="button" aria-label="Seleccionar color">
+				</div>
+			</div>
+		</ion-item>
+	</form>
+</ion-content>
+
+<ion-footer class="form-footer">
+	<ion-button expand="block" (click)="onSubmit()" [disabled]="categoryForm.invalid">
+		{{ isEditMode ? 'Actualizar categoría' : 'Crear categoría' }}
+	</ion-button>
+</ion-footer>
